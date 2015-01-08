@@ -1,12 +1,61 @@
 security:
+    encoders: 
+        Wallabag\Bundle\CoreBundle\Entity\User:
+            algorithm: sha512
+            encode_as_base64: false
+            iterations: 1
+
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER
+
     providers:
-        in_memory:
-            memory: ~
+        user_provider:
+            id: platform.user.provider
 
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
+        login:
+            pattern: ^/demo/secured/login
+            security: false
+
+        oauth_token:
+            pattern: ^/oauth/v2/token
+            security: false
+
+        secured_area:
+            pattern: ^/demo/secured/
+            form_login:
+                provider: user_provider
+                check_path: wallabag_oauth_server_auth_login_check
+                login_path: wallabag_oauth_server_auth_login
+                username_parameter: login
+                password_parameter: password
+                use_referer:        true
+            logout:
+                path: _demo_logout
+                target: _demo
+
+        oauth_autorize:
+            pattern: ^/oauth/v2/auth
+            form_login: 
+                provider: user_provider
+                check_path: wallabag_oauth_server_auth_login_check
+                login_path: wallabag_oauth_server_auth_login
+            anonymous: true
+
+        api: 
+            pattern: ^/api
+            fos_oauth: true
+            stateless: true
+
         default:
             anonymous: ~
+
+    access_control:
+        # You can omit this if /api can be accessed both authenticated and anonymously
+        - { path: ^/api, roles: [ IS_AUTHENTICATED_FULLY ] }
+        - { path: ^/demo/secured/hello/admin/, roles: ROLE_ADMIN }
+        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }

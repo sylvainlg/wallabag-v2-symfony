@@ -1,0 +1,7 @@
+wallabag_api_v1_articles:
+    path: /articles
+    defaults: {_controller:WallabagApiBundle:Api:articles}
+
+wallabag_api_v1_user:
+    path: /user
+    defaults: {_controller:WallabagApiBundle:Api:user}
