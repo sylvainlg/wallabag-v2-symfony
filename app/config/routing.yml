@@ -28,3 +28,6 @@ wallabag_oauth_server_auth_login_check:
 wallabag_create_user:
     pattern: /create_user/{email}/{password}
     defaults: { _controller: WallabagCoreBundle:Security:createUser }
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"

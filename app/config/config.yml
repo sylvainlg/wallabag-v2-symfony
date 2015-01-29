@@ -2,6 +2,7 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: "@FOSOAuthServerBundle/Resources/config/security.xml" }
 
 framework:
     #esi:             ~
@@ -78,7 +79,12 @@ fos_oauth_server:
     access_token_class:  Wallabag\Bundle\ApiBundle\Entity\AccessToken
     refresh_token_class: Wallabag\Bundle\ApiBundle\Entity\RefreshToken
     auth_code_class:     Wallabag\Bundle\ApiBundle\Entity\AuthCode
-    service:
-        user_provider: platform.user.provider
-        options:
-            supported_scopes: user
+#    service:
+#        user_provider: platform.user.provider
+#        options:
+#            supported_scopes: user
+
+fos_user:
+    db_driver: orm
+    firewall_name: oauth_autorize
+    user_class: Wallabag\Bundle\CoreBundle\Entity\User

@@ -1,4 +1,4 @@
 services:
-#    wallabag_api.example:
-#        class: Wallabag\Bundle\ApiBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+    wallabag_api.handler:
+        class: Wallabag\Bundle\ApiBundle\Service\ApiRequestHandler
+        arguments: ["@doctrine.orm.entity_manager"]

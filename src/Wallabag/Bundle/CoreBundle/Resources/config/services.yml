@@ -1,6 +1,7 @@
 parameters:
   platform.entity.user.class: Wallabag\Bundle\CoreBundle\Entity\User
   platform.user.provider.class: Wallabag\Bundle\CoreBundle\Provider\UserProvider
+  api.service.request.class: Wallabag\Bunde\CoreBundle\Services\ApiRequester
 
 services:
   platform.user.manager:
@@ -21,3 +22,10 @@ services:
     class: "%platform.user.provider.class%"
     arguments:
       - @platform.user.repository
+
+  api.service.request:
+    class: "%api.service.request.class%"
+    arguments:
+      - "%oauth_url"
+      - "%oauth_client%"
+      - "%oauth_secret%"

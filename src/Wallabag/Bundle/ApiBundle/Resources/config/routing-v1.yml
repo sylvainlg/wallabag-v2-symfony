@@ -5,3 +5,9 @@ wallabag_api_v1_articles:
 wallabag_api_v1_user:
     path: /user
     defaults: {_controller:WallabagApiBundle:Api:user}
+
+wallabag_api_v1_entries:
+    path: /entries
+    defaults: {_controller:WallabagApiBundle:Api:entries}
+    requirements:
+        _method: GET

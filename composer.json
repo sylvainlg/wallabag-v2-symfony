@@ -19,7 +19,9 @@
         "sensio/framework-extra-bundle": "~3.0",
         "incenteev/composer-parameter-handler": "~2.0",
         "jms/serializer": "~0.16",
-        "friendsofsymfony/oauth-server-bundle": "~1.4"
+        "friendsofsymfony/oauth-server-bundle": "~1.4",
+        "friendsofsymfony/user-bundle": "~2.0@dev",
+        "php-curl-class/php-curl-class": "~2.1"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
