@@ -6,14 +6,14 @@ namespace Wallabag\Bundle\CoreBundle\Services;
 class ApiRequester
 {
     private $url;
-    private $client;
-    private $secret;
+    private $clientId;
+    private $clientSecret;
 
     public function __construct($oauth_url, $oauth_client, $oauth_secret)
     {
         $this->url       = $oauth_url;
-        $this->client    = $oauth_client;
-        $this->secret    = $oauth_secret;
+        $this->clientId    = $oauth_client;
+        $this->clientSecret    = $oauth_secret;
         $this->apiUrl = $this->url . 'api/v3/';
         $this->authUrl = $this->url . 'oauth/v2/';
     }
@@ -62,6 +62,7 @@ class ApiRequester
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_REFERER        => $url,
             CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_TIMEOUT        => 10,
         );
         if (! empty($parameters) || ! empty($request)) {
             if (! empty($request)) {
@@ -141,12 +142,21 @@ class ApiRequester
     {
         $parameters = array(
             'client_id'       => $this->clientId,
-            'client_secret'   => $redirect,
+            'client_secret'   => $this->clientSecret,
             'grant_type'      => 'client_credentials',
         );
-        return $this->parseGet(
+        /*return $this->request(
             $this->authUrl . 'token',
-            $parameters
+            $parameters,
+            'GET'
+        );*/
+        return $this->request(
+            $this->parseGet(
+                $this->authUrl . 'token',
+                $parameters
+            ),
+            array(),
+            'GET'
         );
     }
     /**

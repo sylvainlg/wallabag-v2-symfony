@@ -1,1 +1,21 @@
-Hello {{ name }}!
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Wallabag</h1>
+
+
+    <p>Bienvenue sur Wallabag.</p>
+
+    {% if app.user %}
+    <p><a href="/logout">Déconnnexion</a></p>
+    {% endif %}
+
+
+    <ul>
+    {% for entry in entries %}
+    	<li>{{ entry.title }}</li>
+    {% endfor %}
+    </ul>
+
+
+{% endblock %}

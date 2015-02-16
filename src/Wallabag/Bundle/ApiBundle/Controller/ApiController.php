@@ -34,6 +34,7 @@ class ApiController extends Controller
     public function entriesAction() {
         
         $list = $this->get('wallabag_api.handler')->entries($this->get('request'));
+        $list = array();
 
         return new JsonResponse(array('result' => $list));
 
